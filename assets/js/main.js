@@ -1,3 +1,20 @@
+let sound = new Audio('assets/Rex.mp3');
+
+async function playSound() {
+  try {
+    await sound.play();
+    sound.loop = true;
+    sound.controls = true;
+  } catch(err) {
+    console.log(err);
+  }
+}
+
+function resetSound() {
+  sound.pause();
+  sound.currentTime = 0;
+}
+
 Math.minmax = (value, limit) => {
   return Math.max(Math.min(value, limit), -limit);
 };
@@ -238,6 +255,7 @@ const holes = [
 
 joystickHeadElement.addEventListener("mousedown", function (event) {
   if (!gameInProgress) {
+    playSound();
     mouseStartX = event.clientX;
     mouseStartY = event.clientY;
     gameInProgress = true;
@@ -308,6 +326,7 @@ window.addEventListener("keydown", function (event) {
 });
 
 function resetGame() {
+  resetSound();
   previousTimestamp = undefined;
   gameInProgress = false;
   mouseStartX = undefined;
